@@ -10,7 +10,7 @@ def date_range_prefix(start=None, end=None):
     s = datetime.strptime(start, '%Y-%m-%d')
     e = datetime.strptime(end, '%Y-%m-%d')
 
-    assert e >= s
+    assert e >= s, 'end should be no later than start'
 
     rng = []
 
@@ -55,7 +55,7 @@ if __name__ == '__main__':
         ('2021-01-01', '2021-03-31'),
         ('2021-12-29', '2022-01-05'),
         ('2021-12-29', '2023-01-05'),
-        ('2021-12-19', '2023-02-28'),
+        ('2021-12-19', '2020-02-28'),
     ]
 
     for case in cases:
