@@ -20,6 +20,8 @@ class TestDateRange(unittest.TestCase):
         'test_8': {'type': 'assertEqual', 'kw': {'start':'2021-01-01', 'end':'2021-03-01'}, 'res': ['2021/01', '2021/02', '2021/03/01']},
         'test_9': {'type': 'assertEqual', 'kw': {'start':'2021-11-30', 'end':'2022-01-01'}, 'res': ['2021/11/30', '2021/12', '2022/01/01']},
         'test_10': {'type': 'assertEqual', 'kw': {'start':'2021-11-30', 'end':'2023-01-01'}, 'res': ['2021/11/30', '2021/12', '2022', '2023/01/01']},
+        'test_11': {'type': 'assertEqual', 'kw': {'start':'2021-01-01', 'end':'2021-12-31'}, 'res': ['2021']},
+        'test_12': {'type': 'assertEqual', 'kw': {'start':'2021-01-01', 'end':'2022-01-01'}, 'res': ['2021', '2022/01/01']},
     }
 
     def test_1(self):
@@ -59,6 +61,14 @@ class TestDateRange(unittest.TestCase):
         getattr(self, case['type'])(date_range_prefix(**case['kw']), case['res'])
     
     def test_10(self):
+        case = self.CASES.get(get_func_name())
+        getattr(self, case['type'])(date_range_prefix(**case['kw']), case['res'])
+    
+    def test_11(self):
+        case = self.CASES.get(get_func_name())
+        getattr(self, case['type'])(date_range_prefix(**case['kw']), case['res'])
+    
+    def test_12(self):
         case = self.CASES.get(get_func_name())
         getattr(self, case['type'])(date_range_prefix(**case['kw']), case['res'])
 

@@ -15,20 +15,21 @@ def date_range_prefix(start=None, end=None):
     rng = []
 
     if s.year == e.year:
-        year = s.year
         if s.month == e.month:
             month = s.month
-            if (s.day == 1) & (e.day == calendar.monthrange(year, month)[1]):
-                rng += [f'{year}/{month:02d}']
+            if (s.day == 1) & (e.day == calendar.monthrange(s.year, month)[1]):
+                rng += [f'{s.year}/{month:02d}']
             else:
                 days = range(s.day, e.day+1)
-                rng += [f'{year}/{month:02d}/{day:02d}' for day in days]
+                rng += [f'{s.year}/{month:02d}/{day:02d}' for day in days]
+        elif (s.month == 1) & (s.day == 1) & (e.month == 12) & (e.day == 31):
+            rng += [f'{s.year}']
         else:
             _end = datetime(s.year, s.month, calendar.monthrange(s.year, s.month)[1]).strftime('%Y-%m-%d')
             rng += date_range_prefix(start=start, end=_end)
             
             if e.month - s.month > 1:
-                rng += [f'{year}/{month:02d}' for month in range(s.month+1, e.month)]
+                rng += [f'{s.year}/{month:02d}' for month in range(s.month+1, e.month)]
             
             _start = datetime(e.year, e.month, 1).strftime('%Y-%m-%d')
             rng += date_range_prefix(start=_start, end=end)
@@ -43,21 +44,22 @@ def date_range_prefix(start=None, end=None):
 
 
 if __name__ == '__main__':
-    cases = [
-        ('2021-01-15', '2021-01-25'),
-        ('2021-01-15', '2021-02-25'),
-        ('2021-01-15', '2021-03-25'),
-        ('2021-01-01', '2021-01-01'),
-        ('2021-01-01', '2021-01-31'),
-        ('2021-01-01', '2021-02-01'),
-        ('2021-01-01', '2021-02-05'),
-        ('2021-01-01', '2021-02-28'),
-        ('2021-01-01', '2021-03-31'),
-        ('2021-12-29', '2022-01-05'),
-        ('2021-12-29', '2023-01-05'),
-        ('2021-12-19', '2020-02-28'),
-    ]
+    # cases = [
+    #     ('2021-01-15', '2021-01-25'),
+    #     ('2021-01-15', '2021-02-25'),
+    #     ('2021-01-15', '2021-03-25'),
+    #     ('2021-01-01', '2021-01-01'),
+    #     ('2021-01-01', '2021-01-31'),
+    #     ('2021-01-01', '2021-02-01'),
+    #     ('2021-01-01', '2021-02-05'),
+    #     ('2021-01-01', '2021-02-28'),
+    #     ('2021-01-01', '2021-03-31'),
+    #     ('2021-12-29', '2022-01-05'),
+    #     ('2021-12-29', '2023-01-05'),
+    #     ('2021-12-19', '2020-02-28'),
+    # ]
 
-    for case in cases:
-        print(*case)
-        print(date_range_prefix(*case), '\n')
+    # for case in cases:
+    #     print(*case)
+    #     print(date_range_prefix(*case), '\n')
+    print(date_range_prefix('2021-01-01', '2021-12-31'))
