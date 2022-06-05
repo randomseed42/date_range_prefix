@@ -10,7 +10,7 @@ def date_range_prefix(start=None, end=None):
     s = datetime.strptime(start, '%Y-%m-%d')
     e = datetime.strptime(end, '%Y-%m-%d')
 
-    assert e >= s, 'end should be no later than start'
+    assert e >= s, 'end should be no earlier than start'
 
     rng = []
 
